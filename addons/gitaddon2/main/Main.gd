@@ -155,11 +155,19 @@ func _on_StageAll_pressed():
 # try and push
 func _on_Push_pressed():
 	run_command(['push', '--porcelain'])
-
+	popup.set_title("Push")
+	show_error(PoolStringArray(output).join("\n"))
+	popup.set_title("Alert!")
+	update_ui()
+	
 # TODO: break this into fetch->merge ??? or at lest report conflicts
 # try and fetch	
 func _on_Fetch_pressed():
 	run_command(['pull'])
+	popup.set_title("Pull")
+	show_error(PoolStringArray(output).join("\n"))
+	popup.set_title("Alert!")
+	update_ui()
 
 # user wants to git init
 func _on_ConfirmationDialog_confirmed():

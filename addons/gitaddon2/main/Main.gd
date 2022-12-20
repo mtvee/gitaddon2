@@ -1,6 +1,8 @@
 tool
 extends Control
 
+export var debug: bool = true
+
 # temp file for git commit message
 const tmp_filename = "gitcommit.txt"
 # system command to run
@@ -23,7 +25,6 @@ onready var ctext = $MarginContainer/Layout/TextEdit
 
 
 func _ready():
-	print("git ready")
 	if OS.get_name() == 'Windows':
 		git_command = "git.exe"
 	popup = AcceptDialog.new()
@@ -46,10 +47,10 @@ func ask_if_wants_init():
 # NOTE: this command just globs stdout and stderr in one pile
 func run_command(args) -> bool:
 	output = []
-	print("Execute: " + git_command)
 	var exit_code = OS.execute(git_command, args, true, output, true)
 	output = output[0].split("\n")
-	print(output)
+	if debug:
+		print(output)
 	if exit_code != 0:
 		for line in output:
 			if line.begins_with('fatal:'):

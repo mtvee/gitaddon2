@@ -100,12 +100,20 @@ margin_bottom = 20.0
 disabled = true
 text = "Stage All"
 
+[node name="StageSelected" type="Button" parent="MarginContainer/Layout/VSplitContainer/VBoxContainer2/HBoxContainer"]
+margin_left = 128.0
+margin_right = 233.0
+margin_bottom = 20.0
+disabled = true
+text = "Stage Selected"
+
 [node name="ChangedList" type="ItemList" parent="MarginContainer/Layout/VSplitContainer/VBoxContainer2"]
 margin_top = 24.0
 margin_right = 1024.0
 margin_bottom = 314.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_vertical = 3
+select_mode = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Layout"]
 margin_top = 576.0
@@ -147,6 +155,9 @@ access = 2
 
 [connection signal="pressed" from="MarginContainer/Layout/HBoxContainer2/Commit" to="." method="_on_Commit_pressed"]
 [connection signal="pressed" from="MarginContainer/Layout/VSplitContainer/VBoxContainer2/HBoxContainer/StageAll" to="." method="_on_StageAll_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/VSplitContainer/VBoxContainer2/HBoxContainer/StageSelected" to="." method="_on_StageSelected_pressed"]
+[connection signal="item_selected" from="MarginContainer/Layout/VSplitContainer/VBoxContainer2/ChangedList" to="." method="_on_ChangedList_item_selected"]
+[connection signal="multi_selected" from="MarginContainer/Layout/VSplitContainer/VBoxContainer2/ChangedList" to="." method="_on_ChangedList_multi_selected"]
 [connection signal="pressed" from="MarginContainer/Layout/HBoxContainer/Status" to="." method="_on_Status_pressed"]
 [connection signal="pressed" from="MarginContainer/Layout/HBoxContainer/Push" to="." method="_on_Push_pressed"]
 [connection signal="pressed" from="MarginContainer/Layout/HBoxContainer/Fetch" to="." method="_on_Fetch_pressed"]

@@ -3,6 +3,7 @@ extends Control
 
 # TODO
 # - handle merge conflicts properly, instead of doing nothing?
+# - hook up stage selected
 
 export var debug: bool = true
 
@@ -87,6 +88,13 @@ func update_ui():
 	else:
 		$MarginContainer/Layout/HBoxContainer2/Commit.disabled = false
 	
+	var i = clist.get_selected_items()
+	if len(i) > 0:
+		$MarginContainer/Layout/VSplitContainer/VBoxContainer2/HBoxContainer/StageSelected.disabled = false
+	else:
+		$MarginContainer/Layout/VSplitContainer/VBoxContainer2/HBoxContainer/StageSelected.disabled = true
+			
+	
 # fill status clist	
 func _on_Status_pressed():
 	if not run_command(['status', '--porcelain']):
@@ -132,6 +140,7 @@ func _on_Commit_pressed():
 
 # add files, if they are untracked, and move to the staged list slist
 func _on_StageAll_pressed():
+	slist.clear()
 	while clist.get_item_count() > 0:
 		if clist.get_item_metadata(0) == '?':
 			run_command(['add', clist.get_item_text(0)])
@@ -147,7 +156,7 @@ func _on_StageAll_pressed():
 func _on_Push_pressed():
 	run_command(['push', '--porcelain'])
 
-# TODO: break this into fetch->merge for
+# TODO: break this into fetch->merge ??? or at lest report conflicts
 # try and fetch	
 func _on_Fetch_pressed():
 	run_command(['pull'])
@@ -173,3 +182,27 @@ func _on_FileDialog_dir_selected(dir):
 				of.store_string(data)
 				of.close()
 	show_error(output[0])
+
+# stage selected items
+func _on_StageSelected_pressed():
+	var items = clist.get_selected_items()
+	if len(items) == 0:
+		return
+	for i in items:
+		if clist.get_item_metadata(i) == '?':
+			run_command(['add', clist.get_item_text(i)])
+			clist.set_item_metadata(0, 'A')
+			clist.set_item_custom_fg_color(i, Color.cyan)
+			clist.set_item_icon(i, status_added)
+		append_to_list(slist, clist.get_item_text(i), clist.get_item_custom_fg_color(i), clist.get_item_icon(i), clist.get_item_metadata(i))
+	for i in items:
+		clist.remove_item(i)
+	update_ui()		
+
+# an item was selected
+func _on_ChangedList_item_selected(index):
+	update_ui()
+
+# an item was selected
+func _on_ChangedList_multi_selected(index, selected):
+	update_ui()

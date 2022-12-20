@@ -11,7 +11,7 @@ then a library so there are the following tradeoffs/bonuses:
 
 ## Screens
 
-![](C:\Users\svred\Devel\godot\gitaddon2\screenshots\Screenshot.png)
+![](screenshots\Screenshot.png)
 
 ## License
 

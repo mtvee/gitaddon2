@@ -1,0 +1,142 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/gitaddon2/main/Main.gd" type="Script" id=1]
+
+[node name="Git" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 3.0
+margin_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Layout" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1024.0
+margin_bottom = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/Layout"]
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="MarginContainer/Layout/HBoxContainer2"]
+margin_top = 3.0
+margin_right = 56.0
+margin_bottom = 17.0
+text = "Message"
+
+[node name="Commit" type="Button" parent="MarginContainer/Layout/HBoxContainer2"]
+margin_left = 60.0
+margin_right = 123.0
+margin_bottom = 20.0
+disabled = true
+text = "Commit"
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/Layout"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 124.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+
+[node name="VSplitContainer" type="VSplitContainer" parent="MarginContainer/Layout"]
+margin_top = 128.0
+margin_right = 1024.0
+margin_bottom = 576.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Layout/VSplitContainer"]
+margin_right = 1024.0
+margin_bottom = 118.0
+
+[node name="Label2" type="Label" parent="MarginContainer/Layout/VSplitContainer/VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 14.0
+text = "Staged"
+
+[node name="StagedList" type="ItemList" parent="MarginContainer/Layout/VSplitContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 1024.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Layout/VSplitContainer"]
+margin_top = 130.0
+margin_right = 1024.0
+margin_bottom = 448.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Layout/VSplitContainer/VBoxContainer2"]
+margin_right = 1024.0
+margin_bottom = 20.0
+
+[node name="Label3" type="Label" parent="MarginContainer/Layout/VSplitContainer/VBoxContainer2/HBoxContainer"]
+margin_top = 3.0
+margin_right = 54.0
+margin_bottom = 17.0
+text = "Changed"
+
+[node name="StageAll" type="Button" parent="MarginContainer/Layout/VSplitContainer/VBoxContainer2/HBoxContainer"]
+margin_left = 58.0
+margin_right = 125.0
+margin_bottom = 20.0
+disabled = true
+text = "Stage All"
+
+[node name="ChangedList" type="ItemList" parent="MarginContainer/Layout/VSplitContainer/VBoxContainer2"]
+margin_top = 24.0
+margin_right = 1024.0
+margin_bottom = 318.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Layout"]
+margin_top = 580.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="Status" type="Button" parent="MarginContainer/Layout/HBoxContainer"]
+margin_right = 51.0
+margin_bottom = 20.0
+text = "Status"
+
+[node name="Push" type="Button" parent="MarginContainer/Layout/HBoxContainer"]
+margin_left = 55.0
+margin_right = 98.0
+margin_bottom = 20.0
+text = "Push"
+
+[node name="Fetch" type="Button" parent="MarginContainer/Layout/HBoxContainer"]
+margin_left = 102.0
+margin_right = 149.0
+margin_bottom = 20.0
+text = "Fetch"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+margin_right = 200.0
+margin_bottom = 70.0
+
+[node name="FileDialog" type="FileDialog" parent="."]
+margin_right = 500.0
+margin_bottom = 300.0
+window_title = "Choose path path for .git"
+resizable = true
+mode = 2
+access = 2
+
+[connection signal="pressed" from="MarginContainer/Layout/HBoxContainer2/Commit" to="." method="_on_Commit_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/VSplitContainer/VBoxContainer2/HBoxContainer/StageAll" to="." method="_on_StageAll_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/HBoxContainer/Status" to="." method="_on_Status_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/HBoxContainer/Push" to="." method="_on_Push_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/HBoxContainer/Fetch" to="." method="_on_Fetch_pressed"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
+[connection signal="dir_selected" from="FileDialog" to="." method="_on_FileDialog_dir_selected"]

@@ -1,0 +1,15 @@
+.godot/
+.import/
+
+export.cfg
+export_presets.cfg
+
+addons/godot-plugin-refresher/
+
+*.translation
+
+# mono poop
+.mono/
+data_*/
+mono_crash.*.json
+

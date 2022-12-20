@@ -50,7 +50,10 @@ func run_command(args) -> bool:
 	var exit_code = OS.execute(git_command, args, true, output, true)
 	output = output[0].split("\n")
 	if debug:
-		print(output)
+		print(">>>> " + git_command + " " + PoolStringArray(args).join(" "))
+		for line in output:
+			print(line)
+		print("git<<<<")
 	if exit_code != 0:
 		for line in output:
 			if line.begins_with('fatal:'):

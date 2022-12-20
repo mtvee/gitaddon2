@@ -1,6 +1,9 @@
 tool
 extends Control
 
+# TODO
+# - handle merge conflicts properly, instead of doing nothing?
+
 export var debug: bool = true
 
 # temp file for git commit message

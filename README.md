@@ -11,7 +11,7 @@ then a library so there are the following tradeoffs/bonuses:
 
 ## Screens
 
-![](screenshots\Screenshot.png)
+![](./screenshots/Screenshot.png)
 
 ## License
 

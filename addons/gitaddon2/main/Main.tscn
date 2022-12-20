@@ -40,6 +40,12 @@ margin_bottom = 20.0
 disabled = true
 text = "Commit"
 
+[node name="Branch" type="Label" parent="MarginContainer/Layout/HBoxContainer2"]
+margin_left = 127.0
+margin_top = 3.0
+margin_right = 127.0
+margin_bottom = 17.0
+
 [node name="TextEdit" type="TextEdit" parent="MarginContainer/Layout"]
 margin_top = 24.0
 margin_right = 1024.0

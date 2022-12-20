@@ -99,6 +99,9 @@ func _on_Status_pressed():
 			append_to_list(clist, fname, Color.cyan, status_added, 'A' )
 		if code == 'D ':
 			append_to_list(clist, fname, Color.gray, status_deleted, 'D' )
+			
+	if run_command(['rev-parse', '--abbrev-ref', 'HEAD']):
+		$MarginContainer/Layout/HBoxContainer2/Branch.text = output[0]		
 	update_ui()
 
 # run the commit command	

@@ -158,6 +158,7 @@ func _on_FileDialog_dir_selected(dir):
 	if not run_command(['init', dir]):
 		return
 	var d = Directory.new()
+	# check for .gitignore and if not found use the template and create one
 	if not d.file_exists(dir + "/.gitignore"):
 		var f = File.new()
 		if f.file_exists("res://addons/gitaddon2/settings/gitignore.txt"):

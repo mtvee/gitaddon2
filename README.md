@@ -7,6 +7,12 @@ then a library so there are the following tradeoffs/bonuses:
 - lightweight, just gdscript
 - functionality is limited to basic day to day git commands: add/stage/commit/push/pull. If I need more then that I use a terminal.
 
+
+
+## Screens
+
+![](C:\Users\svred\Devel\godot\gitaddon2\screenshots\Screenshot.png)
+
 ## License
 
 MIT

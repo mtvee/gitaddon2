@@ -14,7 +14,9 @@ var git_command = "git"
 # output from the exec command
 var output = []
 # message box
-var popup
+var popup: AcceptDialog;
+# repo path
+var repo_path: String
 
 # icons
 onready var status_changed = load("res://addons/gitaddon2/assets/check-18.png")
@@ -33,8 +35,15 @@ func _ready():
 		git_command = "git.exe"
 	popup = AcceptDialog.new()
 	add_child(popup)
+	check_for_repo()	
 	update_ui()
 
+func check_for_repo():
+	if not run_command(['rev-parse', '--show-toplevel']):
+		return
+	repo_path = output[0]
+	print(repo_path)
+	
 # show the alert with a messge
 func show_error(msg):
 	popup.dialog_text = msg
@@ -143,7 +152,7 @@ func _on_StageAll_pressed():
 	slist.clear()
 	while clist.get_item_count() > 0:
 		if clist.get_item_metadata(0) == '?':
-			run_command(['add', clist.get_item_text(0)])
+			run_command(['add', repo_path + '/' + clist.get_item_text(0)])
 			clist.set_item_metadata(0, 'A')
 			clist.set_item_custom_fg_color(0, Color.cyan)
 			clist.set_item_icon(0, status_added)

@@ -8,7 +8,9 @@ then a library so there are the following tradeoffs/bonuses:
 - functionality is limited to basic day to day git commands: add/stage/commit/push/pull. If I need more then that I use a terminal. There are also plenty of excellent git clients/guis out there. This is just intended to keep the normal Godot workflow inside Godot.
 - you *must* have `git` available on the path for this thing to work
 
+## Issues
 
+- filenames with spaces are a problem on windows
 
 ## Screens
 

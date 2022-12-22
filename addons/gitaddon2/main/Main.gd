@@ -4,6 +4,7 @@ extends Control
 # TODO
 # - handle merge conflicts properly, instead of doing nothing?
 # - hook up stage selected
+# - filenames witb spaces blow up on windows
 
 export var debug: bool = true
 
@@ -42,7 +43,7 @@ func check_for_repo():
 	if not run_command(['rev-parse', '--show-toplevel']):
 		return
 	repo_path = output[0]
-	print(repo_path)
+	print("Repo path: " + repo_path)
 	
 # show the alert with a messge
 func show_error(msg):
@@ -115,6 +116,7 @@ func _on_Status_pressed():
 			continue
 		var code = line.substr(0,2)
 		var fname = line.substr(3, len(line)-3)	
+		fname = fname.replace('"', '')
 		if code == ' M':
 			append_to_list(clist, fname, Color.green, status_changed, 'M' )
 		if code == '??':
@@ -130,7 +132,6 @@ func _on_Status_pressed():
 
 # run the commit command	
 func _on_Commit_pressed():
-	print('foo')
 	var msg = ''
 	var cnt = ctext.get_line_count()
 	if cnt == 1 and ctext.get_line(0) == '':
@@ -152,7 +153,8 @@ func _on_StageAll_pressed():
 	slist.clear()
 	while clist.get_item_count() > 0:
 		if clist.get_item_metadata(0) == '?':
-			run_command(['add', repo_path + '/' + clist.get_item_text(0)])
+			var fullpath = repo_path + '/' + clist.get_item_text(0)
+			run_command(['add', '"' + fullpath + '"'])
 			clist.set_item_metadata(0, 'A')
 			clist.set_item_custom_fg_color(0, Color.cyan)
 			clist.set_item_icon(0, status_added)
